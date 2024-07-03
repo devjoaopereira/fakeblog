@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Fake Blog</title>
+</head>
+<body>
+
+    <header>
+        <h1>Fake Blog</h1>
+    </header>
+
+    <section class="form-post-section">
+        <div class="container">
+            <fieldset>
+                <legend>Send Post</legend>
+    
+                <input type="text" name="title" placeholder="Title">
+                <textarea name="body" cols="60" rows="10" placeholder="Your post body..."></textarea>
+
+                <button id="btn-send-post" class="btn-primary" type="button">Send</button>
+            </fieldset>
+        </div>
+    </section>
+
+    <section class="posts-section">
+        <div class="container">
+            <div id="posts">
+                <!-- Exemplo da estrutura do post após ser renderizado
+                    <div class="post-card">
+                        <div class="post-card-title">
+                            <h2>sunt aut facere repellat provident occaecati excepturi optio reprehenderit</h2>
+                        </div>
+                        <div class="post-card-body">
+                            <p>quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto</p>
+                        </div>
+                    </div> 
+                -->
+            </div>
+            <div class="posts-buttons-navigator" style="display: none;">
+                <button id="btn-prev" class="btn-primary" type="button">Prev</button>
+                <button id="btn-next" class="btn-primary" type="button">Next</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="assets/js/script.js"></script>
+    
+</body>
+</html>
