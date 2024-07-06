@@ -1,3 +1,4 @@
+const formPostEl = document.querySelector('.form-post-section');
 const pageSize = 9;
 const postsBtnsNavigatorEl = document.querySelector('.posts-buttons-navigator');
 const postsEl = document.querySelector('#posts');
@@ -10,6 +11,11 @@ async function getPosts() {
         postsBtnsNavigatorEl.style.display = 'none';
 
         const request = await fetch('https://jsonplaceholder.typicode.com/posts');
+
+        if (!request.ok) {
+            throw new Error(`An error occurred in the request: ${request.status}`);
+        }
+
         const response = await request.json();
 
         if (response.length) {
@@ -19,8 +25,47 @@ async function getPosts() {
             renderBtnsNavigator();
         }
     } catch (error) {
-        console.error('Ocorreu um erro na requisição:', error);
+        console.error(error);
         postsEl.innerHTML = 'Posts not found...';
+    }
+}
+
+async function sendPost() {
+    const inputTitleEl = formPostEl.querySelector('input[name="title"]');
+    const inputBodyEl = formPostEl.querySelector('textarea[name="body"]');
+
+    if (inputTitleEl.value && inputBodyEl.value) {
+        try {
+            const request = await fetch
+            (
+                'https://jsonplaceholder.typicode.com/posts',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title: inputTitleEl.value,
+                        body: inputTitleEl.value,
+                        userId: 1
+                    })
+                }
+            );
+
+            if (request.ok) {
+                getPosts();
+            } else {
+                throw new Error(`An error occurred in the request: ${request.status}`);
+            }
+        } catch (error) {
+            console.error('An error occurred in the request:', error);
+            alert('An error occurred while trying to insert the post, try again!');
+        } finally {
+            inputTitleEl.value = '';
+            inputBodyEl.value = '';
+        }
+    } else {
+        alert('Enter a title and body for your post!');
     }
 }
 
@@ -90,5 +135,6 @@ const nextPage = () => {
 
 getPosts();
 
+formPostEl.querySelector('#btn-send-post').addEventListener('click', sendPost);
 postsBtnsNavigatorEl.querySelector('#btn-prev').addEventListener('click', prevPage);
 postsBtnsNavigatorEl.querySelector('#btn-next').addEventListener('click', nextPage);
